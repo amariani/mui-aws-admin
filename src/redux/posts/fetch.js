@@ -2,13 +2,15 @@ import {
   fetchPostsBegin,
   fetchPostsSuccess,
   fetchPostsFailure,
-} from './postActions';
+} from './actions';
+import API from '../../libs/api';
 
 const fetchPosts = () => {
   // Thunk function, accept dispatch and getState
   return dispatch => {
     dispatch(fetchPostsBegin());
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    API.posts
+      .list()
       .then(res => res.json())
       .then(res => {
         if (res.error) {

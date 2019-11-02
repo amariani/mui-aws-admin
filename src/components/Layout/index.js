@@ -64,7 +64,7 @@ const Layout = props => {
             noWrap
             className={classes.title}
           >
-            YourCompany Backoffice
+            Your Company Backoffice
           </Typography>
           <IconButton onClick={handleSignOut} color="inherit">
             <SignOutIcon />

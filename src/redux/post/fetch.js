@@ -1,27 +1,25 @@
-import {
-  fetchPostsBegin,
-  fetchPostsSuccess,
-  fetchPostsFailure,
-} from './actions';
+import { fetchPostBegin, fetchPostSuccess, fetchPostFailure } from './actions';
+import API from '../../libs/api';
 
-const fetchPosts = () => {
+const fetchPost = postId => {
   // Thunk function, accept dispatch and getState
   return dispatch => {
-    dispatch(fetchPostsBegin());
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    dispatch(fetchPostBegin());
+    API.posts
+      .retrieve(postId)
       .then(res => res.json())
       .then(res => {
         if (res.error) {
           throw res.error;
         }
 
-        dispatch(fetchPostsSuccess(res));
+        dispatch(fetchPostSuccess(res));
         return res;
       })
       .catch(error => {
-        dispatch(fetchPostsFailure(error));
+        dispatch(fetchPostFailure(error));
       });
   };
 };
 
-export default fetchPosts;
+export default fetchPost;

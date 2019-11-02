@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
-import Button from '../custom/Button';
-import { R_DEFAULT } from '../../router/constants';
+import { Button as PMButton } from '../../custom';
+import { R_DEFAULT } from '../../../router/constants';
 
 export default function NotFound(props) {
   return (
@@ -19,13 +19,13 @@ export default function NotFound(props) {
             </Typography>
           </Grid>
           <Grid item xs>
-            <Button
+            <PMButton
               color="primary"
               variant="contained"
               onClick={() => props.history.push(R_DEFAULT)}
             >
               Go back to home
-            </Button>
+            </PMButton>
           </Grid>
         </Grid>
       </Grid>

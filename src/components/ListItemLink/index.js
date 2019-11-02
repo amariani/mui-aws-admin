@@ -1,21 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Link as RouterLink } from 'react-router-dom';
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  withStyles,
+} from '@material-ui/core';
+import { NavLink as RouterLink } from 'react-router-dom';
+
+const styles = ({ palette }) => {
+  return {
+    root: {
+      color: palette.primary.contrastText,
+      background: palette.primary.light,
+      '& svg': {
+        '& path': {
+          fill: palette.primary.contrastText,
+        },
+      },
+      '&:hover': {
+        color: palette.primary.main,
+        '& svg': {
+          '& path': {
+            fill: palette.primary.main,
+          },
+        },
+      },
+    },
+  };
+};
 
 const ListItemLink = props => {
-  const { icon, primary, to } = props;
+  const { icon, primary, to, classes } = props;
 
   const renderLink = React.useMemo(
     () =>
       React.forwardRef((itemProps, ref) => (
         // With react-router-dom@^6.0.0 use `ref` instead of `innerRef`
         // See https://github.com/ReactTraining/react-router/issues/6056
-        <RouterLink to={to} {...itemProps} innerRef={ref} />
+        <RouterLink
+          to={to}
+          {...itemProps}
+          activeClassName={classes.root}
+          exact={to === '/'}
+          innerRef={ref}
+        />
       )),
-    [to]
+    [to, classes]
   );
 
   return (
@@ -34,4 +65,4 @@ ListItemLink.propTypes = {
   to: PropTypes.string.isRequired,
 };
 
-export default ListItemLink;
+export default withStyles(styles)(ListItemLink);

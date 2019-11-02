@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { R_SIGN_IN } from './constants';
 import { getCurrentUser } from '../amplify';
 import Loading from '../components/custom/Loading';
+import Layout from '../components/Layout';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -25,26 +26,28 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   }, []);
 
   return (
-    <Loading isLoading={isLoading}>
-      <Route
-        {...rest}
-        render={props => {
-          if (isAuthenticated) {
-            return <Component {...props} />;
-          }
-          return (
-            <Redirect
-              to={{
-                pathname: R_SIGN_IN,
-                state: {
-                  from: props.location,
-                },
-              }}
-            />
-          );
-        }}
-      />
-    </Loading>
+    <Layout>
+      <Loading isLoading={isLoading}>
+        <Route
+          {...rest}
+          render={props => {
+            if (isAuthenticated) {
+              return <Component {...props} />;
+            }
+            return (
+              <Redirect
+                to={{
+                  pathname: R_SIGN_IN,
+                  state: {
+                    from: props.location,
+                  },
+                }}
+              />
+            );
+          }}
+        />
+      </Loading>
+    </Layout>
   );
 };
 

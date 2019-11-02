@@ -18,10 +18,10 @@ import SignOut from '../components/Auth/SignOut';
 import ForgotPassword from '../components/Auth/ForgotPassword';
 import ForgotPasswordConfirm from '../components/Auth/ForgotPasswordConfirm';
 import PassChangeSuccess from '../components/Auth/PassChangeSuccess';
-import NotFound from '../components/NotFound';
+import NotFound from '../components/Pages/NotFound';
 // Protected Components
-import Dashboard from '../components/Dashboard';
-import Posts from '../components/Posts';
+import Dashboard from '../components/Pages/Dashboard';
+import Posts from './Posts';
 
 const MainRouter = () => (
   <Router history={createBrowserHistory()}>
@@ -37,7 +37,7 @@ const MainRouter = () => (
       />
       <Route exact path={R_CHANGE_PASS_SUCCESS} component={PassChangeSuccess} />
       <ProtectedRoute exact path={R_DEFAULT} component={Dashboard} />
-      <ProtectedRoute exact path={R_POSTS} component={Posts} />
+      <ProtectedRoute path={R_POSTS} component={Posts} />
       <Route path="*" component={NotFound} />
     </Switch>
   </Router>
