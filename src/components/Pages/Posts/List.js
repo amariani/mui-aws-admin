@@ -21,12 +21,6 @@ import Table from '../../StickyHeadTable';
 
 const postsColumns = [
   {
-    id: 'id',
-    label: 'ID',
-    minWidth: 80,
-    align: 'left',
-  },
-  {
     id: 'userId',
     label: 'User ID',
     minWidth: 80,

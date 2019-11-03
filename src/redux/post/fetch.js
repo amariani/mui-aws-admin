@@ -1,4 +1,9 @@
 import { fetchPostBegin, fetchPostSuccess, fetchPostFailure } from './actions';
+import {
+  fetchUserBegin,
+  fetchUserSuccess,
+  fetchUserFailure,
+} from '../user/actions';
 import API from '../../libs/api';
 
 const fetchPost = postId => {
@@ -13,8 +18,21 @@ const fetchPost = postId => {
           throw res.error;
         }
 
-        dispatch(fetchPostSuccess(res));
-        return res;
+        dispatch(fetchUserBegin());
+        API.users
+          .retrieve(res.userId)
+          .then(userRes => userRes.json())
+          .then(userRes => {
+            if (userRes.error) {
+              throw userRes.error;
+            }
+            dispatch(fetchUserSuccess(userRes));
+            dispatch(fetchPostSuccess(res));
+            return res;
+          })
+          .catch(error => {
+            dispatch(fetchUserFailure(error));
+          });
       })
       .catch(error => {
         dispatch(fetchPostFailure(error));
